@@ -154,6 +154,8 @@ function download_issue_files(issue){
         
         //**
         
+        product_html = "";
+        
         for (j=0; j < data.length; j++){
         
             var files = [];
@@ -181,7 +183,7 @@ function download_issue_files(issue){
             product_html += temp_product_html;
             gotFS_write(DATADIR);
             
-            alert(product_html);
+            //alert(product_html);
             
             /*for (var key in data[j]) {
                 if (data[j].hasOwnProperty(key)) {
@@ -425,8 +427,8 @@ function gotFS_write(DIR) {
 
     function gotFileWriter(writer) {
         writer.onwriteend = function(evt) {
-            
-            alert('finished writing');
+            render_issue(foldername);
+            //alert('finished writing');
             
             /*writer.seek(writer.length);
                 writer.write(product_html);*/
