@@ -151,87 +151,97 @@ function download_issue_files(issue){
     //alert('getting file dict to download');
     $('#issue_'+issue).html('Loading');
     $.get("http://eaerephelp.appspot.com/getfilelist/"+issue+"", {}, function(data) {
-        var files = [];
-        var files_downloaded = 0;
         
-        product_html = '<div>'+data['itemcode']+'</div>\
-                        <div>Price: '+data['price']+'</div>\
-                        <div>Description: '+data['description']+'</div>\
-                        <div>Inventory: '+data['inventory']+'</div>\
-                        ';
+        //**
         
-        for (var key in data) {
-            if (data.hasOwnProperty(key)) {
-                //alert('key '+key);
-                files.push(key);
-            };
-        };
+        for (j=0; j<data.length; j++){
         
-        var $status = $('#issue_'+foldername);
-        
-        var num_files_to_download = 0;
-        for (var i=0; i < files.length; i++){
-            if (i !='price' && i != 'inventory' && i!= 'itemcode' && i!= 'description'){
-                num_files_to_download += 1;
-            }
-        };
-        
-        for (var i=0; i < files.length; i++){
+            var files = [];
+            var files_downloaded = 0;
             
-            if (files[i]=='price'){
-                //alert('price'+data[files[i]]);
-                //to_download = false;
-            }else if (files[i]=='inventory'){
-                //alert('inventory'+data[files[i]]);
-                //to_download = false;
-            }else if (files[i]=='itemcode'){
-                //alert('itemcode'+data[files[i]]);
-                //to_download = false;
-            }else if (files[i]=='description'){
-                //alert('description'+data[files[i]]);
-                //to_download = false;
-            }else{
-                var data_key = files[i];
-                
-                gotFS_write(DATADIR);
-                
-                //to_download = true;
-                
-                alert(data[data_key]);
-                
-                var ft = new FileTransfer();
-
-                ft.onprogress = function(progressEvent) {
-                    if (progressEvent.lengthComputable) {
-                        var perc = Math.abs(Math.floor((progressEvent.loaded / progressEvent.total) * 100));
-                        $status.html(perc + " Loading...")
-                    } else {
-                        if($status.innerHTML == "") {
-                            $status.innerHTML = "Loading";
-                        } else {
-                            $status.innerHTML += ".";
-                        }
-                    }
+            product_html = '<div>'+data[j]['itemcode']+'</div>\
+                            <div>Price: '+data[j]['price']+'</div>\
+                            <div>Description: '+data[j]['description']+'</div>\
+                            <div>Inventory: '+data[j]['inventory']+'</div>\
+                            ';
+            
+            for (var key in data[j]) {
+                if (data[j].hasOwnProperty(key)) {
+                    //alert('key '+key);
+                    files.push(key);
                 };
-                var dlPath = DATADIR.fullPath + "/" + data_key;
-                ft.download("http://eaerephelp.appspot.com/getfile/" + data[data_key], dlPath, function(){
-                    files_downloaded += 1;
-                    //alert(files_downloaded);
-                    if (files_downloaded == num_files_to_download){
-                        set_issue_list();//adds articles once all files are downloaded
-                        render_issue(foldername);
-                    };
-                },onError_test_6);
-                
             };
             
+            var $status = $('#issue_'+foldername);
+            
+            var num_files_to_download = 0;
+            for (var i=0; i < files.length; i++){
+                if (i !='price' && i != 'inventory' && i!= 'itemcode' && i!= 'description'){
+                    num_files_to_download += 1;
+                }
+            };
+            
+            for (var i=0; i < files.length; i++){
+                
+                if (files[i]=='price'){
+                    //alert('price'+data[files[i]]);
+                    //to_download = false;
+                }else if (files[i]=='inventory'){
+                    //alert('inventory'+data[files[i]]);
+                    //to_download = false;
+                }else if (files[i]=='itemcode'){
+                    //alert('itemcode'+data[files[i]]);
+                    //to_download = false;
+                }else if (files[i]=='description'){
+                    //alert('description'+data[files[i]]);
+                    //to_download = false;
+                }else{
+                    var data_key = files[i];
+                    
+                    gotFS_write(DATADIR);
+                    
+                    //to_download = true;
+                    
+                    alert(data[j][data_key]);
+                    
+                    var ft = new FileTransfer();
+
+                    ft.onprogress = function(progressEvent) {
+                        if (progressEvent.lengthComputable) {
+                            var perc = Math.abs(Math.floor((progressEvent.loaded / progressEvent.total) * 100));
+                            $status.html(perc + " Loading...")
+                        } else {
+                            if($status.innerHTML == "") {
+                                $status.innerHTML = "Loading";
+                            } else {
+                                $status.innerHTML += ".";
+                            }
+                        }
+                    };
+                    var dlPath = DATADIR.fullPath + "/" + data_key;
+                    ft.download("http://eaerephelp.appspot.com/getfile/" + data[j][data_key], dlPath, function(){
+                        files_downloaded += 1;
+                        //alert(files_downloaded);
+                        if (files_downloaded == num_files_to_download){
+                            set_issue_list();//adds articles once all files are downloaded
+                            render_issue(foldername);
+                        };
+                    },onError_test_6);
+                    
+                };
+                
+            };
+            var string_folder = foldername.toString();
+            if (localStorage.downloaded == undefined){
+                localStorage.downloaded = string_folder;
+            }else{
+                localStorage.downloaded = localStorage.downloaded+','+string_folder;
+            };
+    
         };
-        var string_folder = foldername.toString();
-        if (localStorage.downloaded == undefined){
-            localStorage.downloaded = string_folder;
-        }else{
-            localStorage.downloaded = localStorage.downloaded+','+string_folder;
-        };
+    
+    //**
+    
     }, "json")
     .fail(function() {
         no_connection = true;
