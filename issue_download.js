@@ -159,7 +159,7 @@ function download_issue_files(issue){
             };
         };
         
-        var render = false;
+        //var render = false;
         
         var $status = $('#issue_'+foldername)
         
@@ -170,21 +170,25 @@ function download_issue_files(issue){
             if (i !='price' && i != 'inventory' && i!= 'itemcode' && i!= 'description'){
                 num_files_to_download += 1;
             }
-        }
+        };
+        
+        alert(num_files_to_download);
         
         for (var i=0; i < files.length; i++){
             
-            if (i=='price'){
-                alert('price'+files[i]);
+            alert(files[i]);
+            
+            if (files[i]=='price'){
+                alert('price'+data[files[i]]);
                 to_download = false;
-            }else if (i=='inventory'){
-                alert('inventory'+files[i]);
+            }else if (files[i]=='inventory'){
+                alert('inventory'+data[files[i]]);
                 to_download = false;
-            }else if (i=='itemcode'){
-                alert('itemcode'+files[i]);
+            }else if (files[i]=='itemcode'){
+                alert('itemcode'+data[files[i]]);
                 to_download = false;
-            }else if (i=='description'){
-                alert('description'+files[i]);
+            }else if (files[i]=='description'){
+                alert('description'+data[files[i]]);
                 to_download = false;
             }else{
                 var data_key = files[i];
@@ -192,12 +196,12 @@ function download_issue_files(issue){
             };
             
             //var data_key = files[i];
-            
+            /*
             if (i == (files.length-1)){
                 render = true;
             };
-            
-            if (to_download){
+            */
+            if (to_download == true){
                 
                 to_download = false;
                 
