@@ -280,15 +280,10 @@ function get_issue_list_handler (){
     $.getJSON('http://eaerephelp.appspot.com/get_issue_list', function(data) {
 		//$('#employeeList li').remove();
 		categories = data.items;
-		$.each(categories, function(index, category) {
+        alert(categories);
+		/*$.each(categories, function(index, category) {
             alert(employee);
-			//$('#employeeList').append('<li><a href="employeedetails.html?id=' + employee.id + '">' +
-			//		'<img src="pics/' + employee.picture + '"/>' +
-			//		'<h4>' + employee.firstName + ' ' + employee.lastName + '</h4>' +
-			//		'<p>' + employee.title + '</p>' +
-			//		'<span class="ui-li-count">' + employee.reportCount + '</span></a></li>');
-		});
-		//$('#employeeList').listview('refresh');
+		});*/
 	});
     
     
