@@ -62,7 +62,7 @@ function readAsText_new(file) {
 //A ton of callback function needed to store files on sd card persistent storage on device
 function onFSSuccess(fileSystem) {
     //alert('find or create Directory'+'-'+foldername);
-    fileSystem.root.getDirectory("Android/data/magtemplate.com.scknss.www",{create:true, exclusive: false}, function(appID){
+    fileSystem.root.getDirectory("Android/data/rephelp.com.scknss.www",{create:true, exclusive: false}, function(appID){
     //fileSystem.root.getDirectory("magtemplate.com.scknss.www",{create:true, exclusive: false}, function(appID){
         appID.getDirectory(foldername, {create: true, exclusive: false}, madeDir, onError_test_2)
     },onError_test_1);
@@ -162,14 +162,46 @@ function download_issue_files(issue){
         var render = false;
         
         var $status = $('#issue_'+foldername)
-
+        
+        var to_download = false;
+        
+        var num_files_to_download = 0;
         for (var i=0; i < files.length; i++){
-            var data_key = files[i];
+            if (i !='price' && i != 'inventory' && i!= 'itemcode' && i!= 'description'){
+                num_files_to_download += 1;
+            }
+        }
+        
+        for (var i=0; i < files.length; i++){
+            
+            if (i=='price'){
+                alert('price'+files[i]);
+                to_download = false;
+            }else if (i=='inventory'){
+                alert('inventory'+files[i]);
+                to_download = false;
+            }else if (i=='itemcode'){
+                alert('itemcode'+files[i]);
+                to_download = false;
+            }else if (i=='description'){
+                alert('description'+files[i]);
+                to_download = false;
+            }else{
+                var data_key = files[i];
+                to_download = true;
+            };
+            
+            //var data_key = files[i];
+            
             if (i == (files.length-1)){
                 render = true;
             };
             
-            var ft = new FileTransfer();
+            if (to_download){
+                
+                to_download = false;
+                
+                var ft = new FileTransfer();
 
                 ft.onprogress = function(progressEvent) {
                     if (progressEvent.lengthComputable) {
@@ -187,11 +219,13 @@ function download_issue_files(issue){
                 ft.download("http://eaeissues.appspot.com/getfile/" + data[data_key], dlPath, function(){
                     files_downloaded += 1;
                     //alert(files_downloaded);
-                    if (files_downloaded == files.length){
+                    if (files_downloaded == num_files_to_download){
                         set_issue_list();//adds articles once all files are downloaded
                         render_issue(foldername);
                     };
                 },onError_test_6);
+            };
+            
         };
         var string_folder = foldername.toString();
         if (localStorage.downloaded == undefined){
@@ -250,8 +284,6 @@ function set_issue_list(){
     var category_array_str = localStorage.category_list;
     var category_array = category_array_str.split(',');
     //category_array.slice(0,-1);
-    
-    alert(category_array);
     
     var num_categories = category_array.length;
     
