@@ -247,8 +247,10 @@ function set_issue_list(){
     $('#menu_content').html("");
     //var num_issues = parseInt(localStorage.issue_list);
     
-    var num_categories = localStorage.category_list.length;
-    var category_array = localStorage.category_list;
+    var category_array_str = localStorage.category_list;
+    var category_array = category_array_str.split(',');
+    
+    var num_categories = category_array.length;
     
     if(no_connection){
         no_connection = false;
