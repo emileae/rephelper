@@ -249,7 +249,9 @@ function set_issue_list(){
     
     var category_array_str = localStorage.category_list;
     var category_array = category_array_str.split(',');
-    category_array.slice(0,-1);
+    //category_array.slice(0,-1);
+    
+    alert(category_array);
     
     var num_categories = category_array.length;
     
@@ -257,7 +259,7 @@ function set_issue_list(){
         no_connection = false;
         $('#menu_content').html('please connect to the internet<br>tap<br>"Refresh Issues"<br>to see issue list');
     }else{
-        for(var i = 0; i<= num_categories; i++){
+        for(var i = 0; i < num_categories; i++){
             
             $('#get_issues_btn').html('Refresh Issues');
             
@@ -268,12 +270,12 @@ function set_issue_list(){
                 var in_array = $.inArray(i_string,n);
                 //vie element id the same name as the issue number or category
                 if (in_array > -1){
-                    $('#menu_content').append('<div class="issue_download btn downloaded" id="issue_'+category_array[i]+'">Issue '+category_array[i]+'</div><div id="article_list_'+category_array[i]+'" class="article_list"></div>');
+                    $('#menu_content').append('<div class="issue_download btn downloaded" id="issue_'+category_array[i]+'">'+category_array[i]+'</div><div id="article_list_'+category_array[i]+'" class="article_list"></div>');
                 }else{
-                    $('#menu_content').append('<div class="issue_download btn" id="issue_'+category_array[i]+'">Download Issue '+category_array[i]+'</div><div id="article_list_'+category_array[i]+'" class="article_list"></div>');
+                    $('#menu_content').append('<div class="issue_download btn" id="issue_'+category_array[i]+'">Download '+category_array[i]+'</div><div id="article_list_'+category_array[i]+'" class="article_list"></div>');
                 };
             }else{
-                $('#menu_content').append('<div class="issue_download btn" id="issue_'+category_array[i]+'">Download Issue '+category_array[i]+'</div>');
+                $('#menu_content').append('<div class="issue_download btn" id="issue_'+category_array[i]+'">Download '+category_array[i]+'</div>');
             };
 
         };
