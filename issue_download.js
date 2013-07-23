@@ -184,7 +184,7 @@ function download_issue_files(issue){
         a.push(JSON.parse(localStorage.getItem('session')));
         localStorage.setItem('session', JSON.stringify(a));
         
-        SaveDataToLocalStorage(data);
+        gotFS_write(DATADIR);
         
         //alert('num files to dwnld'+num_files_to_download);
         
@@ -397,6 +397,7 @@ function get_issue_list_handler (){
     
 };
 
+
 function SaveDataToLocalStorage(data)
 {
     var a = [];
@@ -409,6 +410,33 @@ function SaveDataToLocalStorage(data)
     // Re-serialize the array back into a string and store it in localStorage
     localStorage.setItem('session', JSON.stringify(a));
 };
+
+
+// FILE WRITER
+
+function gotFS_write(fileSystem) {
+        fileSystem.root.getFile("product_list.html", {create: true, exclusive: false}, gotFileEntry_write, onError_test_1);
+    };
+
+    function gotFileEntry_write(fileEntry) {
+        fileEntry.createWriter(gotFileWriter, onError_test_1);
+    };
+
+    function gotFileWriter(writer) {
+        writer.onwriteend = function(evt) {
+            //console.log("contents of file now 'some sample text'");
+            writer.truncate(11);
+            writer.onwriteend = function(evt) {
+                //console.log("contents of file now 'some sample'");
+                writer.seek(4);
+                writer.write(" different text");
+                writer.onwriteend = function(evt){
+                    //console.log("contents of file now 'some different text'");
+                }
+            };
+        };
+        writer.write("some sample text");
+    };
 
 
 
