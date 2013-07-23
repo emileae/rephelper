@@ -277,46 +277,9 @@ function set_issue_list(){
 
 function get_issue_list_handler (){
     
-    $.ajax({
-        url: 'http://eaerephelp.appspot.com/get_issue_list',
-        dataType: 'json',
-        timeout: 5000,
-        success: function(data, status){
-            $.each(data, function(i,item){
-                alert(item);
-                /*var landmark = '<h1>'+item.name+'</h1>'
-                + '<p>'+item.latitude+'<br>'
-                + item.longitude+'</p>';
-                output.append(landmark);*/
-            });
-        },
-        error: function(){
-            alert('There was an error loading the data.');
-        }
-    });
-    
-    /*
-    $.getJSON('http://eaerephelp.appspot.com/get_issue_list', function(data) {
-		//$('#employeeList li').remove();
-		categories = data.items;
-        alert(categories);
-		//$.each(categories, function(index, category) {
-        //    alert(employee);
-		//});
-	});*/
-    
-    
-    /*
     $.get("http://eaerephelp.appspot.com/get_issue_list", {}, function(data) {
-        var JSON_obj = JSON.parse(data);
-        alert('working'+JSON_obj);
-        //var JSON_obj_str = data;
-        //var JSON_obj = JSON.parse(JSON_obj_str);
-        //alert(JSON_obj);
-        //var category_Array = JSON_obj.category_list;
-        //    for(var i=0; i < category_Array.length; i++){
-        //        alert(category_Array[i]);
-        //    };
+        
+        alert(data['category_list']);
         
         //var latest_issue = parseInt(data['issue_num'])
         //localStorage.issue_list = latest_issue;
@@ -333,7 +296,7 @@ function get_issue_list_handler (){
             set_issue_list();
         };
     });
-    */
+    
 };
 
 $(document).ready(function(){
