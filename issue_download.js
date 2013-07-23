@@ -11,6 +11,8 @@ var foldername = "";
 var setting_issue_list = false;
 var no_connection = false;
 
+var categories;
+
 // START FETCH DATADIR FUNCTION
 
 function render_article(articlename){
@@ -277,8 +279,8 @@ function get_issue_list_handler (){
 
     $.getJSON('http://eaerephelp.appspot.com/get_issue_list', function(data) {
 		//$('#employeeList li').remove();
-		employees = data.items;
-		$.each(employees, function(index, employee) {
+		categories = data.items;
+		$.each(categories, function(index, category) {
             alert(employee);
 			//$('#employeeList').append('<li><a href="employeedetails.html?id=' + employee.id + '">' +
 			//		'<img src="pics/' + employee.picture + '"/>' +
