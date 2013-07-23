@@ -275,10 +275,11 @@ function set_issue_list(){
 
 function get_issue_list_handler (){
     $.get("http://eaerephelp.appspot.com/get_issue_list", {}, function(data) {
-        var JSON_obj_str = data;
+        alert('working');
+        /*var JSON_obj_str = data;
         var JSON_obj = JSON.parse(JSON_obj_str);
         alert(JSON_obj);
-        /*var category_Array = JSON_obj.category_list;
+        var category_Array = JSON_obj.category_list;
             for(var i=0; i < category_Array.length; i++){
                 alert(category_Array[i]);
             };*/
