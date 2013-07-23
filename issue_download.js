@@ -165,7 +165,7 @@ function download_issue_files(issue){
                             <div>Inventory: '+data[j]['inventory']+'</div>\
                             ';
                             
-            product_html.append(temp_product_html);
+            product_html += temp_product_html;
             
             for (var key in data[j]) {
                 if (data[j].hasOwnProperty(key)) {
