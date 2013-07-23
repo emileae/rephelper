@@ -149,10 +149,11 @@ function download_handler(issue){
 function download_issue_files(issue){
     //alert('getting file dict to download');
     $('#issue_'+issue).html('Loading');
-    $.get("http://eaeissues.appspot.com/getfilelist/"+issue+"", {}, function(data) {
+    $.get("http://eaerephelp.appspot.com/getfilelist/"+issue+"", {}, function(data) {
         var files = [];
         var files_downloaded = 0;
         
+        alert('issue: '+issue);
         alert('data '+data);
         alert('price '+data['price']);
         
