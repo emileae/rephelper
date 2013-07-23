@@ -274,7 +274,7 @@ function set_issue_list(){
 
 
 function get_issue_list_handler (){
-    $.get("http://eaerephelper.appspot.com/get_issue_list", {}, function(data) {
+    $.get("http://eaerephelp.appspot.com/get_issue_list", {}, function(data) {
         var JSON_obj_str = data;
         var JSON_obj = JSON.parse(JSON_obj_str);
         
