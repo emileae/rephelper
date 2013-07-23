@@ -255,6 +255,7 @@ function download_issue_files(issue){
                 };
                 
             };
+            
             var string_folder = foldername.toString();
             if (localStorage.downloaded == undefined){
                 localStorage.downloaded = string_folder;
@@ -275,9 +276,6 @@ function download_issue_files(issue){
 
 function render_issue(foldername){
     //alert('should render '+foldername);
-    
-    //var a = JSON.parse(localStorage.getItem('session'));
-    //alert('a: '+a);
     
     DATADIR.getFile("product_list.html", {}, gotFileEntry, onError_test_3);//was "index.html"
 };
@@ -309,7 +307,7 @@ function readAsText(file) {
            // close_menu();
         };
         
-        pageScroll.refresh();
+        //pageScroll.refresh();
         close_menu();
         /*$('.article_list').html("");
         
