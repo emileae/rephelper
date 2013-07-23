@@ -153,6 +153,9 @@ function download_issue_files(issue){
         var files = [];
         var files_downloaded = 0;
         
+        alert('data '+data);
+        alert('price '+data['price']);
+        
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
                 alert('key '+key);
@@ -160,7 +163,7 @@ function download_issue_files(issue){
             };
         };
         
-        alert('files length'+files.length);
+        //alert('files.length'+files.length);
         
         //var render = false;
         
