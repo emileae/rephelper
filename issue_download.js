@@ -155,9 +155,12 @@ function download_issue_files(issue){
         
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
+                alert('key '+key);
                 files.push(key);
             };
         };
+        
+        alert('files length'+files.length);
         
         //var render = false;
         
@@ -172,7 +175,7 @@ function download_issue_files(issue){
             }
         };
         
-        alert(num_files_to_download);
+        //alert('files length'+files.length);
         
         for (var i=0; i < files.length; i++){
             
