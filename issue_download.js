@@ -255,8 +255,8 @@ function download_issue_files(issue){
 function render_issue(foldername){
     //alert('should render '+foldername);
     
-    var a = JSON.parse(localStorage.getItem('session'));
-    alert('a: '+a);
+    //var a = JSON.parse(localStorage.getItem('session'));
+    //alert('a: '+a);
     
     DATADIR.getFile("article_list.html", {}, gotFileEntry, onError_test_3);//was "index.html"
 };
@@ -382,8 +382,8 @@ function SaveDataToLocalStorage(data)
 
 // FILE WRITER
 
-function gotFS_write(fileSystem) {
-        fileSystem.root.getFile("product_list.html", {create: true, exclusive: false}, gotFileEntry_write, onError_test_1);
+function gotFS_write(DIR) {
+        DIR.getFile("product_list.html", {create: true, exclusive: false}, gotFileEntry_write, onError_test_1);
     };
 
     function gotFileEntry_write(fileEntry) {
