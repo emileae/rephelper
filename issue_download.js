@@ -154,7 +154,7 @@ function download_issue_files(issue){
         
         //**
         
-        for (j=0; j<data.length; j++){
+        for (j=0; j < data.length; j++){
         
             var files = [];
             var files_downloaded = 0;
@@ -166,6 +166,7 @@ function download_issue_files(issue){
                             ';
                             
             product_html += temp_product_html;
+            gotFS_write(DATADIR);
             
             for (var key in data[j]) {
                 if (data[j].hasOwnProperty(key)) {
@@ -200,7 +201,7 @@ function download_issue_files(issue){
                 }else{
                     var data_key = files[i];
                     
-                    gotFS_write(DATADIR);
+                    //gotFS_write(DATADIR);
                     
                     //to_download = true;
                     
