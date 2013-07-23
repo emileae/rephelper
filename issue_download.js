@@ -168,7 +168,7 @@ function download_issue_files(issue){
         
         //var render = false;
         
-        var $status = $('#issue_'+foldername)
+        var $status = $('#issue_'+foldername);
         
         //var to_download = false;
         
@@ -179,7 +179,14 @@ function download_issue_files(issue){
             }
         };
         
-        alert('num files to dwnld'+num_files_to_download);
+        //http://stackoverflow.com/questions/16083919/push-json-objects-to-array-in-localstorage
+        var a = [];
+        a.push(JSON.parse(localStorage.getItem('session')));
+        localStorage.setItem('session', JSON.stringify(a));
+        
+        SaveDataToLocalStorage(data);
+        
+        //alert('num files to dwnld'+num_files_to_download);
         
         for (var i=0; i < files.length; i++){
             
@@ -280,6 +287,10 @@ function download_issue_files(issue){
 
 function render_issue(foldername){
     //alert('should render '+foldername);
+    
+    var a = JSON.parse(localStorage.getItem('session'));
+    alert('a: '+a);
+    
     DATADIR.getFile("article_list.html", {}, gotFileEntry, onError_test_3);//was "index.html"
 };
 
@@ -385,6 +396,21 @@ function get_issue_list_handler (){
     });
     
 };
+
+function SaveDataToLocalStorage(data)
+{
+    var a = [];
+    // Parse the serialized data back into an aray of objects
+    a = JSON.parse(localStorage.getItem('session'));
+    // Push the new data (whether it be an object or anything else) onto the array
+    a.push(data);
+    // Alert the array value
+    alert(a);  // Should be something like [Object array]
+    // Re-serialize the array back into a string and store it in localStorage
+    localStorage.setItem('session', JSON.stringify(a));
+};
+
+
 
 $(document).ready(function(){
     
