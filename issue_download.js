@@ -168,10 +168,14 @@ function download_issue_files(issue){
             product_html += temp_product_html;
             gotFS_write(DATADIR);
             
+            alert(product_html);
+            
             for (var key in data[j]) {
                 if (data[j].hasOwnProperty(key)) {
                     //alert('key '+key);
-                    files.push(key);
+                    if (key !='price' && key != 'inventory' && key != 'itemcode' && key != 'description'){
+                        files.push(key);
+                    }
                 };
             };
             
@@ -205,7 +209,7 @@ function download_issue_files(issue){
                     
                     //to_download = true;
                     
-                    alert(data[j][data_key]);
+                    //alert(data[j][data_key]);
                     
                     var ft = new FileTransfer();
 
