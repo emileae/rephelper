@@ -274,21 +274,38 @@ function set_issue_list(){
 
 
 function get_issue_list_handler (){
+
+    $.getJSON('http://eaerephelp.appspot.com/get_issue_list', function(data) {
+		//$('#employeeList li').remove();
+		employees = data.items;
+		$.each(employees, function(index, employee) {
+            alert(employee);
+			//$('#employeeList').append('<li><a href="employeedetails.html?id=' + employee.id + '">' +
+			//		'<img src="pics/' + employee.picture + '"/>' +
+			//		'<h4>' + employee.firstName + ' ' + employee.lastName + '</h4>' +
+			//		'<p>' + employee.title + '</p>' +
+			//		'<span class="ui-li-count">' + employee.reportCount + '</span></a></li>');
+		});
+		//$('#employeeList').listview('refresh');
+	});
+    
+    
+    /*
     $.get("http://eaerephelp.appspot.com/get_issue_list", {}, function(data) {
         var JSON_obj = JSON.parse(data);
         alert('working'+JSON_obj);
-        /*var JSON_obj_str = data;
-        var JSON_obj = JSON.parse(JSON_obj_str);
-        alert(JSON_obj);
-        var category_Array = JSON_obj.category_list;
-            for(var i=0; i < category_Array.length; i++){
-                alert(category_Array[i]);
-            };*/
+        //var JSON_obj_str = data;
+        //var JSON_obj = JSON.parse(JSON_obj_str);
+        //alert(JSON_obj);
+        //var category_Array = JSON_obj.category_list;
+        //    for(var i=0; i < category_Array.length; i++){
+        //        alert(category_Array[i]);
+        //    };
         
-        /*var latest_issue = parseInt(data['issue_num'])
-        localStorage.issue_list = latest_issue;
+        //var latest_issue = parseInt(data['issue_num'])
+        //localStorage.issue_list = latest_issue;
 
-        set_issue_list();*/
+        //set_issue_list();
 
     })
     .fail(function() {
@@ -300,6 +317,7 @@ function get_issue_list_handler (){
             set_issue_list();
         };
     });
+    */
 };
 
 $(document).ready(function(){
