@@ -10,6 +10,7 @@ var filename = "";
 var foldername = "";
 var setting_issue_list = false;
 var no_connection = false;
+var product_html = "";
 
 var categories;
 
@@ -153,9 +154,11 @@ function download_issue_files(issue){
         var files = [];
         var files_downloaded = 0;
         
-        //alert('issue: '+issue);
-        //alert('data '+data);
-        //alert('price '+data['price']);
+        product_html = '<div>'+data['itemcode']+'</div>\
+                        <div>Price: '+data['price']+'</div>\
+                        <div>Description: '+data['description']+'</div>\
+                        <div>Inventory: '+data['inventory']+'</div>\
+                        ';
         
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
@@ -164,13 +167,7 @@ function download_issue_files(issue){
             };
         };
         
-        //alert('files.length'+files.length);
-        
-        //var render = false;
-        
         var $status = $('#issue_'+foldername);
-        
-        //var to_download = false;
         
         var num_files_to_download = 0;
         for (var i=0; i < files.length; i++){
@@ -179,17 +176,7 @@ function download_issue_files(issue){
             }
         };
         
-        //http://stackoverflow.com/questions/16083919/push-json-objects-to-array-in-localstorage
-        //var a = [];
-        //a.push(JSON.parse(localStorage.getItem('session')));
-        //localStorage.setItem('session', JSON.stringify(a));
-        
-        
-        //alert('num files to dwnld'+num_files_to_download);
-        
         for (var i=0; i < files.length; i++){
-            
-            alert(files[i]);
             
             if (files[i]=='price'){
                 //alert('price'+data[files[i]]);
@@ -393,17 +380,18 @@ function gotFS_write(DIR) {
     function gotFileWriter(writer) {
         writer.onwriteend = function(evt) {
             //console.log("contents of file now 'some sample text'");
-            writer.truncate(11);
+            //writer.truncate(11);
             writer.onwriteend = function(evt) {
+                
                 //console.log("contents of file now 'some sample'");
-                writer.seek(4);
-                writer.write(" different text");
-                writer.onwriteend = function(evt){
+                writer.seek(writer.length);
+                    writer.write(product_html);
+                //writer.onwriteend = function(evt){
                     //console.log("contents of file now 'some different text'");
                 }
             };
         };
-        writer.write("some sample text");
+        writer.write("");
     };
 
 
