@@ -262,7 +262,7 @@ function render_issue(foldername){
     //var a = JSON.parse(localStorage.getItem('session'));
     //alert('a: '+a);
     
-    DATADIR.getFile("article_list.html", {}, gotFileEntry, onError_test_3);//was "index.html"
+    DATADIR.getFile("product_list.html", {}, gotFileEntry, onError_test_3);//was "index.html"
 };
 
 function gotFileEntry(fileEntry) {
@@ -279,11 +279,15 @@ function readAsText(file) {
     //alert("Read as text");
     var reader = new FileReader();
     reader.onloadend = function(evt) {
-
-        $('.article_list').html("");
+        
+        $('#content').html("");
+        $('#content').html(evt.target.result);
+        pageScroll.refresh();
+        close_menu();
+        /*$('.article_list').html("");
         
         $('#article_list_'+foldername).html(evt.target.result);
-        menuScroll.refresh();
+        menuScroll.refresh();*/
     };
     reader.readAsText(file);
 }
