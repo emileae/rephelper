@@ -159,11 +159,13 @@ function download_issue_files(issue){
             var files = [];
             var files_downloaded = 0;
             
-            product_html = '<div>'+data[j]['itemcode']+'</div>\
+            var temp_product_html = '<div>'+data[j]['itemcode']+'</div>\
                             <div>Price: '+data[j]['price']+'</div>\
                             <div>Description: '+data[j]['description']+'</div>\
                             <div>Inventory: '+data[j]['inventory']+'</div>\
                             ';
+                            
+            product_html.append(temp_product_html);
             
             for (var key in data[j]) {
                 if (data[j].hasOwnProperty(key)) {
@@ -389,17 +391,13 @@ function gotFS_write(DIR) {
 
     function gotFileWriter(writer) {
         writer.onwriteend = function(evt) {
+            
+            alert('finished writing');
+            
+            /*writer.seek(writer.length);
+                writer.write(product_html);*/
             //console.log("contents of file now 'some sample text'");
             //writer.truncate(11);
-            writer.onwriteend = function(evt) {
-                
-                //console.log("contents of file now 'some sample'");
-                writer.seek(writer.length);
-                    writer.write(product_html);
-                //writer.onwriteend = function(evt){
-                    //console.log("contents of file now 'some different text'");
-                
-            };
         };
         writer.write(product_html);
     };
