@@ -391,7 +391,7 @@ function gotFS_write(DIR) {
                 
             };
         };
-        writer.write("");
+        writer.write(product_html);
     };
 
 
