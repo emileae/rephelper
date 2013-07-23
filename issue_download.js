@@ -159,7 +159,20 @@ function download_issue_files(issue){
             var files = [];
             var files_downloaded = 0;
             
+            var img_name = "";
+            
+            for (var key in data[j]) {
+                if (data[j].hasOwnProperty(key)) {
+                    //alert('key '+key);
+                    if (key !='price' && key != 'inventory' && key != 'itemcode' && key != 'description'){
+                        files.push(key);
+                        img_name = key
+                    }
+                };
+            };
+            
             var temp_product_html = '<div>'+data[j]['itemcode']+'</div>\
+                            <div class="fullw_auto"><img id="'+data[j][img_name]+'"></img></div>\
                             <div>Price: '+data[j]['price']+'</div>\
                             <div>Description: '+data[j]['description']+'</div>\
                             <div>Inventory: '+data[j]['inventory']+'</div>\
@@ -170,23 +183,25 @@ function download_issue_files(issue){
             
             alert(product_html);
             
-            for (var key in data[j]) {
+            /*for (var key in data[j]) {
                 if (data[j].hasOwnProperty(key)) {
                     //alert('key '+key);
                     if (key !='price' && key != 'inventory' && key != 'itemcode' && key != 'description'){
                         files.push(key);
                     }
                 };
-            };
+            };*/
             
             var $status = $('#issue_'+foldername);
             
+            /*
             var num_files_to_download = 0;
             for (var i=0; i < files.length; i++){
                 if (i !='price' && i != 'inventory' && i!= 'itemcode' && i!= 'description'){
                     num_files_to_download += 1;
                 }
             };
+            */
             
             for (var i=0; i < files.length; i++){
                 
@@ -229,7 +244,7 @@ function download_issue_files(issue){
                     ft.download("http://eaerephelp.appspot.com/getfile/" + data[j][data_key], dlPath, function(){
                         files_downloaded += 1;
                         //alert(files_downloaded);
-                        if (files_downloaded == num_files_to_download){
+                        if (files_downloaded == files.length){
                             set_issue_list();//adds articles once all files are downloaded
                             render_issue(foldername);
                         };
@@ -282,6 +297,15 @@ function readAsText(file) {
         
         $('#content').html("");
         $('#content').html(evt.target.result);
+        
+        var imgs = $('img').not('.native_img');
+        
+        for(var i = 0; i < imgs.length; i++){
+           var file_name = imgs[i].getAttribute('id');
+           imgs[i].src = DATADIR.fullPath+'/'+file_name;
+           // close_menu();
+        };
+        
         pageScroll.refresh();
         close_menu();
         /*$('.article_list').html("");
