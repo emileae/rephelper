@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <widget xmlns = "http://www.w3.org/ns/widgets"
-        id        = "magtemplate.com.scknss.www"
+        id        = "rephelp.com.scknss.www"
         version   = "0.0.1">
 
     <!-- versionCode is optional and Android only -->
 
-    <name>Mag Template</name>
+    <name>Rep Help</name>
 
     <description>
-        Making a simple magazine template
+        Making a simple product catalogue
     </description>
 
     <author href="http://www.scknss.com" email="emile@scknss.com">
