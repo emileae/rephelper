@@ -180,11 +180,10 @@ function download_issue_files(issue){
         };
         
         //http://stackoverflow.com/questions/16083919/push-json-objects-to-array-in-localstorage
-        var a = [];
-        a.push(JSON.parse(localStorage.getItem('session')));
-        localStorage.setItem('session', JSON.stringify(a));
+        //var a = [];
+        //a.push(JSON.parse(localStorage.getItem('session')));
+        //localStorage.setItem('session', JSON.stringify(a));
         
-        gotFS_write(DATADIR);
         
         //alert('num files to dwnld'+num_files_to_download);
         
@@ -206,6 +205,9 @@ function download_issue_files(issue){
                 //to_download = false;
             }else{
                 var data_key = files[i];
+                
+                gotFS_write(DATADIR);
+                
                 //to_download = true;
                 
                 alert(data[data_key]);
@@ -235,41 +237,6 @@ function download_issue_files(issue){
                 },onError_test_6);
                 
             };
-            
-            //var data_key = files[i];
-            /*
-            if (i == (files.length-1)){
-                render = true;
-            };
-            */
-            /*if (to_download == true){
-                
-                to_download = false;
-                
-                var ft = new FileTransfer();
-
-                ft.onprogress = function(progressEvent) {
-                    if (progressEvent.lengthComputable) {
-                        var perc = Math.abs(Math.floor((progressEvent.loaded / progressEvent.total) * 100));
-                        $status.html(perc + " Loading...")
-                    } else {
-                        if($status.innerHTML == "") {
-                            $status.innerHTML = "Loading";
-                        } else {
-                            $status.innerHTML += ".";
-                        }
-                    }
-                };
-                var dlPath = DATADIR.fullPath + "/" + data_key;
-                ft.download("http://eaerephelp.appspot.com/getfile/" + data[data_key], dlPath, function(){
-                    files_downloaded += 1;
-                    //alert(files_downloaded);
-                    if (files_downloaded == num_files_to_download){
-                        set_issue_list();//adds articles once all files are downloaded
-                        render_issue(foldername);
-                    };
-                },onError_test_6);
-            };*/
             
         };
         var string_folder = foldername.toString();
@@ -397,7 +364,7 @@ function get_issue_list_handler (){
     
 };
 
-
+/*
 function SaveDataToLocalStorage(data)
 {
     var a = [];
@@ -410,6 +377,7 @@ function SaveDataToLocalStorage(data)
     // Re-serialize the array back into a string and store it in localStorage
     localStorage.setItem('session', JSON.stringify(a));
 };
+*/
 
 
 // FILE WRITER
