@@ -245,12 +245,16 @@ function init() {
 
 function set_issue_list(){
     $('#menu_content').html("");
-    var num_issues = parseInt(localStorage.issue_list);
+    //var num_issues = parseInt(localStorage.issue_list);
+    
+    var num_categories = localStorage.category_list.length;
+    var category_array = localStorage.category_list;
+    
     if(no_connection){
         no_connection = false;
         $('#menu_content').html('please connect to the internet<br>tap<br>"Refresh Issues"<br>to see issue list');
     }else{
-        for(var i = 0; i<= num_issues; i++){
+        for(var i = 0; i<= num_categories; i++){
             
             $('#get_issues_btn').html('Refresh Issues');
             
@@ -261,12 +265,12 @@ function set_issue_list(){
                 var in_array = $.inArray(i_string,n);
                 //vie element id the same name as the issue number or category
                 if (in_array > -1){
-                    $('#menu_content').append('<div class="issue_download btn downloaded" id="issue_'+i+'">Issue '+i+'</div><div id="article_list_'+i+'" class="article_list"></div>');
+                    $('#menu_content').append('<div class="issue_download btn downloaded" id="issue_'+category_array[i]+'">Issue '+category_array[i]+'</div><div id="article_list_'+category_array[i]+'" class="article_list"></div>');
                 }else{
-                    $('#menu_content').append('<div class="issue_download btn" id="issue_'+i+'">Download Issue '+i+'</div><div id="article_list_'+i+'" class="article_list"></div>');
+                    $('#menu_content').append('<div class="issue_download btn" id="issue_'+category_array[i]+'">Download Issue '+category_array[i]+'</div><div id="article_list_'+category_array[i]+'" class="article_list"></div>');
                 };
             }else{
-                $('#menu_content').append('<div class="issue_download btn" id="issue_'+i+'">Download Issue '+i+'</div>');
+                $('#menu_content').append('<div class="issue_download btn" id="issue_'+category_array[i]+'">Download Issue '+category_array[i]+'</div>');
             };
 
         };
@@ -279,18 +283,26 @@ function get_issue_list_handler (){
     
     $.get("http://eaerephelp.appspot.com/get_issue_list", {}, function(data) {
         
-        alert(data['category_list']);
+        //alert(data['category_list']);
+        
+        var category_list = data['category_list'];
+        
+        localStorage.category_list = category_list;
+        
+        //for (i=0; i < category_list.length; i++){
+        //    
+        //};
         
         //var latest_issue = parseInt(data['issue_num'])
         //localStorage.issue_list = latest_issue;
 
-        //set_issue_list();
+        set_issue_list();
 
     })
     .fail(function() {
-        if (!localStorage.issue_list){
+        if (!localStorage.category_list){
             $('#get_issues_btn').html('Refresh Issues');
-            $('#menu_content').html('Cannot download issue list<br>Please connect to the internet');
+            $('#menu_content').html('Cannot download category list<br>Please connect to the internet');
         }else{
             $('#get_issues_btn').html('Refresh Issues');
             set_issue_list();
