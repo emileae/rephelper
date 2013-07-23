@@ -172,7 +172,7 @@ function download_issue_files(issue){
             };
             
             var temp_product_html = '<div>'+data[j]['itemcode']+'</div>\
-                            <div class="fullw_auto"><img id="'+data[j][img_name]+'"></img></div>\
+                            <div class="fullw_auto"><img id="'+img_name+'"></img></div>\
                             <div>Price: '+data[j]['price']+'</div>\
                             <div>Description: '+data[j]['description']+'</div>\
                             <div>Inventory: '+data[j]['inventory']+'</div>\
