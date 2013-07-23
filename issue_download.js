@@ -388,7 +388,7 @@ function gotFS_write(DIR) {
                     writer.write(product_html);
                 //writer.onwriteend = function(evt){
                     //console.log("contents of file now 'some different text'");
-                }
+                
             };
         };
         writer.write("");
