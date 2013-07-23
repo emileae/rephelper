@@ -249,6 +249,7 @@ function set_issue_list(){
     
     var category_array_str = localStorage.category_list;
     var category_array = category_array_str.split(',');
+    category_array.slice(0,-1);
     
     var num_categories = category_array.length;
     
