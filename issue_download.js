@@ -230,12 +230,6 @@ function download_issue_files(issue){
                 }else{
                     var data_key = files[i];
                     
-                    //gotFS_write(DATADIR);
-                    
-                    //to_download = true;
-                    
-                    //alert(data[j][data_key]);
-                    
                     var ft = new FileTransfer();
 
                     ft.onprogress = function(progressEvent) {
@@ -507,7 +501,8 @@ $(document).ready(function(){
             url: 'http://eaerephelp.appspot.com/order',
             success: function(data){
                 console.log(data);
-                alert('new inventory'+data['new_inventory']);
+                //alert('new inventory'+data['category']);
+                download_issue_files(data['category'])
                 $('#full_overlay').remove();
                 $('#overlay_content').remove();
                 menu_active = true;
