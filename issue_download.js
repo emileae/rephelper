@@ -485,8 +485,9 @@ $(document).ready(function(){
                 <div id="popup_scroll" class="scrollWrapper">\
                     <div class="scroller">\
                         <div class="mid_title">'+item_code+'</div>\
-                        <form>\
-                            <input type="text" name="item_code" id="item_code" value="'+item_code+'" placeholder="'+item_code+'"></input>\
+                        <form method="post" action="http://eaerephelp.appspot.com/order" id="order_form">\
+                            <input type="text" name="order_email" id="order_email" placeholder="Email"></input>\
+                            <input type="hidden" name="item_code" id="item_code" value="'+item_code+'"></input>\
                             <input type="text" name="qty" id="qty" placeholder="Quantity"></input>\
                             <input type="submit" value="Place Order"></input>\
                         </form>\
@@ -494,6 +495,40 @@ $(document).ready(function(){
                 </div>\
             </div>\
         ');
+    });
+    
+    $('body').on('submit', '#order_form', function(){
+        var email = $('#order_email').val();
+        var item_code = $('#item_code').val();
+        var qty = $('#qty').val();
+        $.ajax({
+            type: 'POST',
+            data: {email:email, item_code:item_code, qty:qty},
+            url: 'http://eaerephelp.appspot.com/order',
+            success: function(data){
+                console.log(data);
+                alert('new inventory'+data['new_inventory']);
+                $('#full_overlay').remove();
+                $('#overlay_content').remove();
+                menu_active = true;
+                popupScroll.destroy();
+                popupScroll = null;
+                imgScroll.destroy();
+                imgScroll = null;
+            },
+            error: function(data){
+                console.log(data);
+                alert('There was an error adding your comment');
+                $('#full_overlay').remove();
+                $('#overlay_content').remove();
+                menu_active = true;
+                popupScroll.destroy();
+                popupScroll = null;
+                imgScroll.destroy();
+                imgScroll = null;
+            }
+        });
+        return false;
     });
     
 });
