@@ -344,11 +344,11 @@ function set_issue_list(){
     
     if(no_connection){
         no_connection = false;
-        $('#menu_content').html('please connect to the internet<br>tap<br>"Refresh Issues"<br>to see issue list');
+        $('#menu_content').html('please connect to the internet<br>tap<br>"Sync"<br>to see issue list');
     }else{
         for(var i = 0; i < num_categories; i++){
             
-            $('#get_issues_btn').html('Refresh Issues');
+            $('#get_issues_btn').html('Sync');
             
             if (localStorage.downloaded){
                 var str = localStorage.downloaded;
@@ -359,10 +359,10 @@ function set_issue_list(){
                 if (in_array > -1){
                     $('#menu_content').append('<div class="issue_download btn downloaded" id="issue_'+category_array[i]+'">'+category_array[i]+'</div><div id="article_list_'+category_array[i]+'" class="article_list"></div>');
                 }else{
-                    $('#menu_content').append('<div class="issue_download btn" id="issue_'+category_array[i]+'">Download '+category_array[i]+'</div><div id="article_list_'+category_array[i]+'" class="article_list"></div>');
+                    $('#menu_content').append('<div class="issue_download btn" id="issue_'+category_array[i]+'">'+category_array[i]+'</div><div id="article_list_'+category_array[i]+'" class="article_list"></div>');
                 };
             }else{
-                $('#menu_content').append('<div class="issue_download btn" id="issue_'+category_array[i]+'">Download '+category_array[i]+'</div>');
+                $('#menu_content').append('<div class="issue_download btn" id="issue_'+category_array[i]+'">'+category_array[i]+'</div>');
             };
 
         };
@@ -393,10 +393,10 @@ function get_issue_list_handler (){
     })
     .fail(function() {
         if (!localStorage.category_list){
-            $('#get_issues_btn').html('Refresh Issues');
+            $('#get_issues_btn').html('Sync');
             $('#menu_content').html('Cannot download category list<br>Please connect to the internet');
         }else{
-            $('#get_issues_btn').html('Refresh Issues');
+            $('#get_issues_btn').html('Sync');
             set_issue_list();
         };
     });
