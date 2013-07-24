@@ -181,7 +181,7 @@ function download_issue_files(issue){
                             ';
                             
             product_html += temp_product_html;
-            gotFS_write(DATADIR);
+            //gotFS_write(DATADIR);
             
             //alert(product_html);
             
@@ -247,8 +247,10 @@ function download_issue_files(issue){
                         files_downloaded += 1;
                         //alert(files_downloaded);
                         if (files_downloaded == files.length){
-                            set_issue_list();//adds articles once all files are downloaded
-                            render_issue(foldername);
+                            gotFS_write(DATADIR);
+                            
+                            //set_issue_list();//adds articles once all files are downloaded
+                            //render_issue(foldername);
                         };
                     },onError_test_6);
                     
