@@ -180,7 +180,9 @@ function download_issue_files(issue){
                             <div class="prod_descr">Description: '+data[j]['description']+'</div>\
                             <div>Price: '+data[j]['price']+'</div>\
                             <div>Inventory: '+data[j]['inventory']+'</div>\
-                            <div class="prod_order">Order</div>\
+                            <div class="prod_order">Order\
+                            <span class="hidden_itemcode">'+data[j]['itemcode']+'</span>\
+                            </div>\
                             <br>\
                             <br>\
                             <br>\
@@ -472,6 +474,9 @@ $(document).ready(function(){
     });
     
     $(document).on('touchend', '.prod_order', function(){
+        
+        var item_code = $(this).children('.hidden_itemcode').html();
+        
         $('body').append('<div id="full_overlay"></div>\
             <div id="overlay_content">\
                 <div class="close_x_wrapper">\
@@ -479,7 +484,9 @@ $(document).ready(function(){
                 </div>\
                 <div id="popup_scroll" class="scrollWrapper">\
                     <div class="scroller">\
+                        <div class="mid_title">'+item_code+'</div>\
                         <form>\
+                            <input type="text" name="item_code" id="item_code" value="'+item_code+'" placeholder="'+item_code+'"></input>\
                             <input type="text" name="qty" id="qty" placeholder="Quantity"></input>\
                             <input type="submit" value="Place Order"></input>\
                         </form>\

@@ -632,6 +632,11 @@ height: 70px;
 width: 70px;
 }
 
+.hidden_itemcode
+{
+display: none;
+}
+
 
 
 
