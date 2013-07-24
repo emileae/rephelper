@@ -156,10 +156,12 @@ function download_issue_files(issue){
         
         product_html = "";
         
+        var files_downloaded = 0;
+        
         for (j=0; j < data.length; j++){
         
             var files = [];
-            var files_downloaded = 0;
+            //var files_downloaded = 0;
             
             var img_name = "";
             
@@ -247,6 +249,7 @@ function download_issue_files(issue){
                         files_downloaded += 1;
                         //alert(files_downloaded);
                         alert('downloaded');
+                        //gotFS_write(DATADIR);
                         if (files_downloaded == files.length){
                             gotFS_write(DATADIR);
                             
