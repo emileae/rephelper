@@ -175,11 +175,14 @@ function download_issue_files(issue){
                 };
             };
             
-            var temp_product_html = '<div>'+data[j]['itemcode']+'</div>\
+            var temp_product_html = '<div class="mid_title">'+data[j]['itemcode']+'</div>\
                             <div class="fullw_auto"><img id="'+img_name+'" width="100%"></img></div>\
                             <div>Price: '+data[j]['price']+'</div>\
-                            <div>Description: '+data[j]['description']+'</div>\
+                            <div class="prod_descr">Description: '+data[j]['description']+'</div>\
                             <div>Inventory: '+data[j]['inventory']+'</div>\
+                            <br>\
+                            <br>\
+                            <br>\
                             ';
                             
             product_html += temp_product_html;
