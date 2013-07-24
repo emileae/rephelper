@@ -246,16 +246,16 @@ function download_issue_files(issue){
                     };
                     var dlPath = DATADIR.fullPath + "/" + data_key;
                     ft.download("http://eaerephelp.appspot.com/getfile/" + data[j][data_key], dlPath, function(){
-                        files_downloaded += 1;
+                        //files_downloaded += 1;
                         //alert(files_downloaded);
                         //alert('downloaded');
-                        //gotFS_write(DATADIR);
-                        if (files_downloaded == files.length){
+                        gotFS_write(DATADIR);
+                        /*if (files_downloaded == files.length){
                             gotFS_write(DATADIR);
                             
                             //set_issue_list();//adds articles once all files are downloaded
                             //render_issue(foldername);
-                        };
+                        };*/
                     },onError_test_6);
                     
                 };
