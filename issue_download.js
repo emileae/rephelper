@@ -177,9 +177,10 @@ function download_issue_files(issue){
             
             var temp_product_html = '<div class="mid_title">'+data[j]['itemcode']+'</div>\
                             <div class="fullw_auto"><img id="'+img_name+'" width="100%"></img></div>\
-                            <div>Price: '+data[j]['price']+'</div>\
                             <div class="prod_descr">Description: '+data[j]['description']+'</div>\
+                            <div>Price: '+data[j]['price']+'</div>\
                             <div>Inventory: '+data[j]['inventory']+'</div>\
+                            <div class="prod_order">Order</div>\
                             <br>\
                             <br>\
                             <br>\
@@ -468,6 +469,24 @@ $(document).ready(function(){
         var filename = filenum+'.html';
         $(this).append('<span id="loading_span"> -Loading</span>');
         render_article(filename);
+    });
+    
+    $(document).on('touchend', '.prod_order', function(){
+        $('body').append('<div id="full_overlay"></div>\
+            <div id="overlay_content">\
+                <div class="close_x_wrapper">\
+                    <div class="close_x"></div>\
+                </div>\
+                <div id="popup_scroll" class="scrollWrapper">\
+                    <div class="scroller">\
+                        <form>\
+                            <input type="text" name="qty" id="qty" placeholder="Quantity"></input>\
+                            <input type="submit" value="Place Order"></input>\
+                        </form>\
+                    </div>\
+                </div>\
+            </div>\
+        ');
     });
     
 });
