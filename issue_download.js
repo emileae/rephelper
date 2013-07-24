@@ -246,6 +246,7 @@ function download_issue_files(issue){
                     ft.download("http://eaerephelp.appspot.com/getfile/" + data[j][data_key], dlPath, function(){
                         files_downloaded += 1;
                         //alert(files_downloaded);
+                        alert('downloaded');
                         if (files_downloaded == files.length){
                             gotFS_write(DATADIR);
                             
