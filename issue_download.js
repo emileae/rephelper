@@ -101,7 +101,9 @@ function readAsText(file) {
     reader.onloadend = function(evt) {
 		var resultJSON = JSON.parse(evt.target.result);
 		var productsArray = resultJSON.Products;
+		
 		alert(productsArray);
+		
 		var template = Handlebars.compile( $('#product_template').html() );
 		var html = template( productsArray );
 		$('#displayJSON').html( html );
@@ -119,7 +121,7 @@ function init() {
 };
 
 function onDeviceReady() {
-    get_issue_list_handler ()
+    //get_issue_list_handler ()
 };
 
 
