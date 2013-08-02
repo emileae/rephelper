@@ -11,6 +11,7 @@ var foldername = "";
 var setting_issue_list = false;
 var no_connection = false;
 var product_html = "";
+var products="";
 
 var categories;
 
@@ -18,7 +19,6 @@ var categories;
 
 function render_article(articlename){
     //alert('try to render');
-    //alert(localStorage.downloaded);
     article_name = articlename;
     DATADIR.getFile(article_name, {}, gotFileEntry_new, onError_test_2);
 };
@@ -63,7 +63,7 @@ function readAsText_new(file) {
 //A ton of callback function needed to store files on sd card persistent storage on device
 function onFSSuccess(fileSystem) {
     //alert('find or create Directory'+'-'+foldername);
-    fileSystem.root.getDirectory("Android/data/rephelp.com.scknss.www",{create:true, exclusive: false}, function(appID){
+    fileSystem.root.getDirectory("Android/data/rephelp2.com.scknss.www",{create:true, exclusive: false}, function(appID){
     //fileSystem.root.getDirectory("magtemplate.com.scknss.www",{create:true, exclusive: false}, function(appID){
         appID.getDirectory(foldername, {create: true, exclusive: false}, madeDir, onError_test_2)
     },onError_test_1);
@@ -150,134 +150,18 @@ function download_handler(issue){
 function download_issue_files(issue){
     //alert('getting file dict to download');
     $('#issue_'+issue).html('Loading');
-    $.get("http://eaerephelp.appspot.com/getfilelist/"+issue+"", {}, function(data) {
-        
-        //**
-        
-        product_html = "";
-        
-        var files_downloaded = 0;
-        
-        for (j=0; j < data.length; j++){
-        
-            var files = [];
-            //var files_downloaded = 0;
-            
-            var img_name = "";
-            
-            for (var key in data[j]) {
-                if (data[j].hasOwnProperty(key)) {
-                    //alert('key '+key);
-                    if (key !='price' && key != 'inventory' && key != 'itemcode' && key != 'description'){
-                        files.push(key);
-                        img_name = key
-                    }
-                };
-            };
-            
-            var temp_product_html = '<div class="mid_title">'+data[j]['itemcode']+'</div>\
-                            <div class="fullw_auto"><img id="'+img_name+'" width="100%"></img></div>\
-                            <div class="prod_descr">Description: '+data[j]['description']+'</div>\
-                            <div>Price: '+data[j]['price']+'</div>\
-                            <div>Inventory: '+data[j]['inventory']+'</div>\
-                            <div class="prod_order">Order\
-                            <span class="hidden_itemcode">'+data[j]['itemcode']+'</span>\
-                            </div>\
-                            <br>\
-                            <br>\
-                            <br>\
-                            ';
-                            
-            product_html += temp_product_html;
-            //gotFS_write(DATADIR);
-            
-            //alert(product_html);
-            
-            /*for (var key in data[j]) {
-                if (data[j].hasOwnProperty(key)) {
-                    //alert('key '+key);
-                    if (key !='price' && key != 'inventory' && key != 'itemcode' && key != 'description'){
-                        files.push(key);
-                    }
-                };
-            };*/
-            
-            var $status = $('#issue_'+foldername);
-            
-            /*
-            var num_files_to_download = 0;
-            for (var i=0; i < files.length; i++){
-                if (i !='price' && i != 'inventory' && i!= 'itemcode' && i!= 'description'){
-                    num_files_to_download += 1;
-                }
-            };
-            */
-            
-            for (var i=0; i < files.length; i++){
-                
-                if (files[i]=='price'){
-                    //alert('price'+data[files[i]]);
-                    //to_download = false;
-                }else if (files[i]=='inventory'){
-                    //alert('inventory'+data[files[i]]);
-                    //to_download = false;
-                }else if (files[i]=='itemcode'){
-                    //alert('itemcode'+data[files[i]]);
-                    //to_download = false;
-                }else if (files[i]=='description'){
-                    //alert('description'+data[files[i]]);
-                    //to_download = false;
-                }else{
-                    var data_key = files[i];
-                    
-                    var ft = new FileTransfer();
-
-                    ft.onprogress = function(progressEvent) {
-                        if (progressEvent.lengthComputable) {
-                            var perc = Math.abs(Math.floor((progressEvent.loaded / progressEvent.total) * 100));
-                            $status.html(perc + " Loading...")
-                        } else {
-                            if($status.innerHTML == "") {
-                                $status.innerHTML = "Loading";
-                            } else {
-                                $status.innerHTML += ".";
-                            }
-                        }
-                    };
-                    var dlPath = DATADIR.fullPath + "/" + data_key;
-                    ft.download("http://eaerephelp.appspot.com/getfile/" + data[j][data_key], dlPath, function(){
-                        //files_downloaded += 1;
-                        //alert(files_downloaded);
-                        alert('downloaded');
-                        gotFS_write(DATADIR);
-                        /*if (files_downloaded == files.length){
-                            gotFS_write(DATADIR);
-                            
-                            //set_issue_list();//adds articles once all files are downloaded
-                            //render_issue(foldername);
-                        };*/
-                    },onError_test_6);
-                    
-                };
-                
-            };
-            
-            var string_folder = foldername.toString();
-            if (localStorage.downloaded == undefined){
-                localStorage.downloaded = string_folder;
-            }else{
-                localStorage.downloaded = localStorage.downloaded+','+string_folder;
-            };
-    
-        };
-    
-    //**
-    
-    }, "json")
-    .fail(function() {
-        no_connection = true;
-        set_issue_list();
-    });
+	
+	$.getJSON('http://50.22.164.226/CatalogueIntegration/ProductsList.aspx?callback=?', function (data){
+		//console.log(data);
+		products = $.map(data.Products, function(p){
+			//console.log(p);
+			return{
+				product: p,
+			};
+		});
+		gotFS_write(DATADIR);
+	});
+	
 };
 
 function render_issue(foldername){
@@ -431,15 +315,15 @@ function gotFS_write(DIR) {
 
     function gotFileWriter(writer) {
         writer.onwriteend = function(evt) {
-            render_issue(foldername);
-            //alert('finished writing');
+            //render_issue(foldername);
+            alert('finished writing');
             
             /*writer.seek(writer.length);
                 writer.write(product_html);*/
             //console.log("contents of file now 'some sample text'");
             //writer.truncate(11);
         };
-        writer.write(product_html);
+        writer.write(products);
     };
 
 
