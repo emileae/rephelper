@@ -66,7 +66,6 @@ function readAsText_new(file) {
 function onFSSuccess(fileSystem) {
     //alert('find or create Directory'+'-'+foldername);
     fileSystem.root.getDirectory("Android/data/rephelp2.com.scknss.www",{create:true, exclusive: false}, function(appID){
-    //fileSystem.root.getDirectory("magtemplate.com.scknss.www",{create:true, exclusive: false}, function(appID){
         appID.getDirectory(foldername, {create: true, exclusive: false}, madeDir, onError_test_2)
     },onError_test_1);
 };
@@ -173,10 +172,10 @@ function download_issue_files(issue){
 	
 };
 
-function render_issue(foldername){
+function render_issue(filename){
     //alert('should render '+foldername);
     
-    DATADIR.getFile("product_list.html", {}, gotFileEntry, onError_test_3);//was "index.html"
+    DATADIR.getFile(filename, {}, gotFileEntry, onError_test_3);//was "index.html"
 };
 
 function gotFileEntry(fileEntry) {
@@ -193,21 +192,22 @@ function readAsText(file) {
     //alert("Read as text");
     var reader = new FileReader();
     reader.onloadend = function(evt) {
+	
+        $('#displayJSON').html(evt.target.result);
+        //$('#content').html("");
+       //$('#content').html(evt.target.result);
         
-        $('#content').html("");
-        $('#content').html(evt.target.result);
+        //var imgs = $('img').not('.native_img');
         
-        var imgs = $('img').not('.native_img');
+        //for(var i = 0; i < imgs.length; i++){
+        //   var file_name = imgs[i].getAttribute('id');
+        //   imgs[i].src = DATADIR.fullPath+'/'+file_name;
+        //   pageScroll.refresh();
+        //   // close_menu();
+        //};
         
-        for(var i = 0; i < imgs.length; i++){
-           var file_name = imgs[i].getAttribute('id');
-           imgs[i].src = DATADIR.fullPath+'/'+file_name;
-           pageScroll.refresh();
-           // close_menu();
-        };
-        
-        pageScroll.refresh();
-        close_menu();
+        //pageScroll.refresh();
+        //close_menu();
         /*$('.article_list').html("");
         
         $('#article_list_'+foldername).html(evt.target.result);
@@ -303,6 +303,7 @@ function gotFS_write(DIR) {
         writer.onwriteend = function(evt) {
             //render_issue(foldername);
             alert('finished writing');
+			render_issue('product_list.html')
         };
         writer.write(products);
     };
