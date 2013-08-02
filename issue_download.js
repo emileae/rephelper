@@ -60,6 +60,8 @@ function readAsText_new(file) {
 
 // END FETCH DATADIR FUNCTION
 
+// KEEP
+
 //A ton of callback function needed to store files on sd card persistent storage on device
 function onFSSuccess(fileSystem) {
     //alert('find or create Directory'+'-'+foldername);
@@ -69,6 +71,7 @@ function onFSSuccess(fileSystem) {
     },onError_test_1);
 };
 
+// KEEP
 function madeDir(d){
     //alert('found/made Directory'+'-'+foldername);
     DATADIR = d;
@@ -79,6 +82,8 @@ function madeDir(d){
     },onError_test);
 };
 
+
+// KEEP
 function gotFileEntries(fileEntries) {
     //alert("The dir has "+fileEntries.length+" entries."+'-'+foldername);
     
@@ -141,11 +146,15 @@ function onDeviceReady() {
     get_issue_list_handler ()
 };
 
+
+// KEEP
 function download_handler(issue){
     //alert('download handler'+issue);
     foldername = issue;
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFSSuccess, null);
 };
+
+//KEEP
 
 function download_issue_files(issue){
     //alert('getting file dict to download');
@@ -264,13 +273,6 @@ function get_issue_list_handler (){
         var category_list = data['category_list'];
         
         localStorage.category_list = category_list;
-        
-        //for (i=0; i < category_list.length; i++){
-        //    
-        //};
-        
-        //var latest_issue = parseInt(data['issue_num'])
-        //localStorage.issue_list = latest_issue;
 
         set_issue_list();
 
@@ -287,41 +289,20 @@ function get_issue_list_handler (){
     
 };
 
-/*
-function SaveDataToLocalStorage(data)
-{
-    var a = [];
-    // Parse the serialized data back into an aray of objects
-    a = JSON.parse(localStorage.getItem('session'));
-    // Push the new data (whether it be an object or anything else) onto the array
-    a.push(data);
-    // Alert the array value
-    alert(a);  // Should be something like [Object array]
-    // Re-serialize the array back into a string and store it in localStorage
-    localStorage.setItem('session', JSON.stringify(a));
-};
-*/
-
-
 // FILE WRITER
-
+// KEEP
 function gotFS_write(DIR) {
         DIR.getFile("product_list.html", {create: true, exclusive: false}, gotFileEntry_write, onError_test_1);
     };
-
+//KEEP
     function gotFileEntry_write(fileEntry) {
         fileEntry.createWriter(gotFileWriter, onError_test_1);
     };
-
+//KEEP
     function gotFileWriter(writer) {
         writer.onwriteend = function(evt) {
             //render_issue(foldername);
             alert('finished writing');
-            
-            /*writer.seek(writer.length);
-                writer.write(product_html);*/
-            //console.log("contents of file now 'some sample text'");
-            //writer.truncate(11);
         };
         writer.write(products);
     };
@@ -331,48 +312,10 @@ function gotFS_write(DIR) {
 $(document).ready(function(){
     
     init();
-    
-    $('body').on('click tap', '#get_issues_btn', function(){
-        $('#get_issues_btn').html('Loading');
-        get_issue_list_handler();
-    });
-    
-    $('body').on('tap click', '.issue_download', function(){
-        var div_id = $(this).attr('id');
-        var issue = div_id.slice(6);
-        download_handler(issue);
-    });
-    
-    $(document).on('touchend', '.article', function(){
-        var id = $(this).attr('id');
-        var filenum = id.slice(1);
-        var filename = filenum+'.html';
-        $(this).append('<span id="loading_span"> -Loading</span>');
-        render_article(filename);
-    });
-    
-    $(document).on('touchend', '.prod_order', function(){
-        
-        var item_code = $(this).children('.hidden_itemcode').html();
-        
-        $('body').append('<div id="full_overlay"></div>\
-            <div id="overlay_content">\
-                <div class="close_x_wrapper">\
-                    <div class="close_x"></div>\
-                </div>\
-                <div id="popup_scroll" class="scrollWrapper">\
-                    <div class="scroller">\
-                        <div class="mid_title">'+item_code+'</div>\
-                        <form method="post" action="http://eaerephelp.appspot.com/order" id="order_form">\
-                            <input type="text" name="order_email" id="order_email" placeholder="Email"></input>\
-                            <input type="hidden" name="item_code" id="item_code" value="'+item_code+'"></input>\
-                            <input type="text" name="qty" id="qty" placeholder="Quantity"></input>\
-                            <input type="submit" value="Place Order"></input>\
-                        </form>\
-                    </div>\
-                </div>\
-            </div>\
-        ');
+	
+	$('body').on('tap click', '#saveJSON', function(){
+		  folder = 'products'
+		 download_handler(folder);
     });
     
     $('body').on('submit', '#order_form', function(){
